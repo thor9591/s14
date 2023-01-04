@@ -1,0 +1,237 @@
+//s14
+//dstqueue.h
+#include <stdio.h>
+#define MAX 10
+int deque[MAX];
+int left = -1, right = -1;
+void addR()
+{
+int num;
+printf("\nEnter the number to be added ");
+scanf("%d", &num);
+if ((left == 0 && right == MAX - 1) || (left == right + 1))
+{
+printf("\nOVERFLOW");
+}
+if (left == -1) // if queue empty
+{
+left = 0;
+right = 0;
+}
+else
+{
+if (right == MAX - 1)
+right = 0;
+else
+right = right + 1;
+}
+deque[right] = num;
+}
+//-------INSERT AT LEFT-------
+void addL()
+{
+int num;
+printf("\nEnter the number to be added ");
+scanf("%d", &num);
+if ((left == 0 && right == MAX - 1) || (left == right + 1))
+{
+printf("\nOVERFLOW");
+}
+if (left == -1) // if queue empty
+{
+left = 0;
+right = 0;
+}
+else
+{
+if (left == 0)
+left = MAX - 1;
+else
+left = left - 1;
+}
+deque[left] = num;
+}
+//-------DELETE FROM RIGHT-------
+void removeR()
+{
+if (left == -1)
+{
+printf("\nUNDERFLOW");
+return;
+}
+printf("\nThe deleted element is %d\n", deque[right]);
+if (left == right) // Queue has only one element
+{
+left = -1;
+right = -1;
+}
+else
+{
+if (right == 0)
+right = MAX - 1;
+else
+right = right - 1;
+}
+}
+//-------DELETE FROM LEFT-------
+void removeL()
+{
+if (left == -1)
+{
+printf("\nUNDERFLOW");
+return;
+}
+printf("\nThe deleted element is %d\n", deque[left]);
+if (left == right) // Queue has only one element
+{
+left = -1;
+right = -1;
+}
+else
+{
+if (left == MAX - 1)
+left = 0;
+else
+left = left + 1;
+}
+}
+// DISPLAY
+void display()
+{
+int front = left, rear = right;
+if (front == -1)
+{
+printf("\nQueue is Empty\n");
+return;
+
+
+}
+printf("\nThe elements in the queue are: ");
+if (front <= rear)
+{
+while (front <= rear)
+{
+printf("%d\t", deque[front]);
+front++;
+}
+}
+else
+{
+while (front <= MAX - 1)
+{
+printf("%d\t", deque[front]);
+front++;
+}
+front = 0;
+while (front <= rear)
+{
+printf("%d\t", deque[front]);
+front++;
+}
+}
+printf("\n");
+}
+
+
+//Deque.c
+#include<stdio.h>
+#include "dstqueue.h"
+void main()
+{
+int choice;
+do
+{
+printf("\n1.ADD RIGHT ");
+printf("\n2.ADD LEFT");
+printf("\n3.REMOVE RIGHT ");
+printf("\n4.REMOVE LEFT");
+printf("\n5.DISPLAY");
+printf("\n6.EXIT");
+printf("\n\nEnter your choice ");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:
+addR();
+break;
+case 2:
+addL();
+break;
+case 3:
+removeR();
+break;
+case 4:
+removeL();
+break;
+case 5:
+display();
+break;
+}
+}while(choice!=6);
+}
+
+//OUTPUT:
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 2
+//Enter the number to be added 42
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 1
+//Enter the number to be added 64
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 2
+//Enter the number to be added 7
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 1
+//Enter the number to be added 16
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 5
+//The elements in the queue are: 7 42 64 16
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 3
+//The deleted element is 16
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 4
+//The deleted element is 7
+//1.ADD RIGHT
+//2.ADD LEFT
+//3.REMOVE RIGHT
+//4.REMOVE LEFT
+//5.DISPLAY
+//6.EXIT
+//Enter your choice 5
+//The elements in the queue are: 42 64
